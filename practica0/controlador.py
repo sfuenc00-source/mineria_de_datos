@@ -1,16 +1,18 @@
 from spark_session import create_spark_session
+import db_connection
 import modelo
 import vista
 
 def ejecutar():
     # Crear SparkSession
-    spark = create_spark_session()
+    spark = create_spark_session(jar_path=db_connection.JAR_PATH)
 
     # Ej1-a
     vista.titulo("Ej1-a")
     df = modelo.cargar_datos(spark)
     vista.mostrar_esquema(df) #esquema inicial
     df = modelo.convertir_tipos(df)
+    df_raw = df  # datos originales (con tipos), para guardarlos en la BD
     vista.mostrar_esquema(df) #esquema después de convertir tipos
     vista.mostrar_filas(df, 6)
 
@@ -51,5 +53,13 @@ def ejecutar():
     df_cuartiles = modelo.empresas_a_cuartiles(df_cleaned)
     vista.mostrar_filas(df_cuartiles, 1)
     vista.mostrar_columnas(df_cuartiles, ["AENA", "BBVA"])
+
+    # Guardar en la base de datos MySQL (IBEX35)
+    try:
+        db_connection.guardar_tabla(df_raw, "Datos2024")
+        db_connection.guardar_tabla(df_renamed, "Datos2024_tratados")
+        vista.mostrar_mensaje("Tablas guardadas en la base de datos IBEX35")
+    except Exception as e:
+        vista.mostrar_mensaje(f"No se ha podido guardar en la base de datos: {e}")
 
     spark.stop()

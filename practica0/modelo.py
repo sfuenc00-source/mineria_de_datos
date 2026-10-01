@@ -1,3 +1,4 @@
+# Uso de IA: Claude (Anthropic) me ayudó a corregir errores; GitHub Copilot (VS Code) me ayudó con errores de escritura.
 import os
 from pyspark.sql.functions import col, to_date
 from pyspark.sql.types import FloatType, StringType

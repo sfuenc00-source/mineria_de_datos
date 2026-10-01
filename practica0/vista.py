@@ -32,3 +32,6 @@ def mostrar_columnas(df, empresas):
     for empresa in empresas:
         columnas += [empresa, f"{empresa}Cuartil"]
     df.select(*columnas).show(df.count())
+
+def mostrar_mensaje(mensaje):
+    print(mensaje)
