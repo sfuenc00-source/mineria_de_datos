@@ -20,7 +20,7 @@ def mostrar_fechas(min_date, max_date, total_days):
 
 def mostrar_comentario(comentario, referencia=""):
     print(f"Comentario/Reflexión/Investigación: {comentario}")
-    print(f"Referencia: {referencia}")
+    print(f"Referencia/s: {referencia}")
 
 def mostrar_variacion_anual(dict_variacion):
     for empresa, (variacion, clasificacion) in dict_variacion.items():
