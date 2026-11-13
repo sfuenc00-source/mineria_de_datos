@@ -3,3 +3,7 @@ __pycache__/
 .vscode/
 prueba.py
 .env
+# data lake generado por Spark (Parquet, Delta): no se sube
+data/
+# salidas de ejecución guardadas en .txt
+salida_*.txt
