@@ -112,3 +112,33 @@ ESQUEMA_EMPRESAS_BRONZE = StructType([
     StructField("trailingPE", DoubleType(), True),
     StructField("dividendYield", DoubleType(), True),
 ])
+
+# ---------------------------------------------------------------------------
+# Práctica 3: aprendizaje no supervisado y MLOps
+# ---------------------------------------------------------------------------
+# Semillas (hay dos fuentes de azar distintas y se fijan por separado)
+SEMILLA_MODELO = 1    # seed de KMeans: fija la inicialización de los centroides
+SEMILLA_HYPEROPT = 42  # rstate de Hyperopt: fija qué valores de k se prueban y en qué orden
+
+# Datos del Ej1/Ej2: solo BBVA, Valor de Apertura (Open) y Valor de Cierre (Close) de la gold
+TICKER_P3 = "BBVA.MC"
+COLUMNAS_P3 = ["Open", "Close"]
+
+# Búsqueda de k
+K_MIN = 2
+K_MAX = 8            # k = 2, 3, ..., 8 (7 valores, el enunciado pide al menos 5)
+MAX_EVALS = 10       # intentos de Hyperopt
+
+# MLflow: la información de experimentos y runs se guarda en local, en la carpeta mlruns
+RUTA_MLRUNS = _ruta("mlruns")
+EXPERIMENTO_EJ1 = "kmeans_BBVA_ej1"   # Ej1: k probados a mano
+EXPERIMENTO_KMEANS = "kmeans_BBVA"    # Ej2: intentos de Hyperopt (algoritmo_empresa)
+
+# Ej4: feature store hecho a mano (tabla Delta con clave Ticker, Date, las features y una columna version)
+RUTA_FEATURES = _ruta("data", "lake", "features")
+VERSION_FEATURES = 1
+K_EJ4 = 6             # k elegido en el Ej1 y el Ej2
+
+# Ej5: otra empresa de la gold (Santander) en un experimento distinto
+TICKER_EJ5 = "SAN.MC"
+EXPERIMENTO_EJ5 = "kmeans_SAN"
